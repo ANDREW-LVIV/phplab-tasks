@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The $input variable contains text in snake case (i.e. hello_world or this_is_home_task)
  * Transform it into camel cased string and return (i.e. helloWorld or thisIsHomeTask)
@@ -7,8 +8,8 @@
  * @param  string  $input
  * @return string
  */
-function snakeCaseToCamelCase(string $input)
-{
+function snakeCaseToCamelCase(string $input) {
+    return lcfirst(str_replace('_', '', ucwords($input, '_')));
 }
 
 /**
@@ -19,8 +20,13 @@ function snakeCaseToCamelCase(string $input)
  * @param  string  $input
  * @return string
  */
-function mirrorMultibyteString(string $input)
-{
+function mirrorMultibyteString(string $input) {
+    $words = explode(' ', $input);
+    foreach ($words as $word) {
+        preg_match_all('/./us', $word, $arr);
+        $words_revere[] = join('', array_reverse($arr[0]));
+    }
+    return implode(' ', $words_revere);
 }
 
 /**
@@ -37,6 +43,11 @@ function mirrorMultibyteString(string $input)
  * @param  string  $noun
  * @return string
  */
-function getBrandName(string $noun)
-{
+function getBrandName(string $noun) {
+    if (substr($noun, 0, 1) === substr($noun, -1)) {
+        $result = ucwords($noun . substr($noun, 1));
+    } else {
+        $result = 'The ' . ucwords($noun);
+    }
+    return $result;
 }
