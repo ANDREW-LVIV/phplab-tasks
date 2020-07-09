@@ -71,6 +71,5 @@ function isSumEqual(string $input) {
             $b += (int) $input[$i];
         }
     }
-    $result = $a == $b ? true : false;
-    return $result;
+    return $a == $b;
 }
