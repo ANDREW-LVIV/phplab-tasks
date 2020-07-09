@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The $minute variable contains a number from 0 to 59 (i.e. 10 or 25 or 60 etc).
  * Determine in which quarter of an hour the number falls.
@@ -10,8 +11,19 @@
  * @return string
  * @throws InvalidArgumentException
  */
-function getMinuteQuarter(int $minute)
-{
+function getMinuteQuarter(int $minute) {
+    if ($minute > 0 && $minute <= 15) {
+        $result = 'first';
+    } elseif ($minute > 15 && $minute <= 30) {
+        $result = 'second';
+    } elseif ($minute > 30 && $minute <= 45) {
+        $result = 'third';
+    } elseif ($minute > 45 && $minute <= 60 || $minute == 0) {
+        $result = 'fourth';
+    } else {
+        throw new InvalidArgumentException('The minute is negative or greater than 60');
+    }
+    return $result;
 }
 
 /**
@@ -25,8 +37,13 @@ function getMinuteQuarter(int $minute)
  * @return boolean
  * @throws InvalidArgumentException
  */
-function isLeapYear(int $year)
-{
+function isLeapYear(int $year) {
+    if ($year < 1900) {
+        throw new InvalidArgumentException('The year is less than 1900');
+    }
+    $leap = date('L', mktime(0, 0, 0, 1, 1, $year));
+    $result = $leap ? true : false;
+    return $result;
 }
 
 /**
@@ -40,6 +57,20 @@ function isLeapYear(int $year)
  * @return boolean
  * @throws InvalidArgumentException
  */
-function isSumEqual(string $input)
-{
+function isSumEqual(string $input) {
+    $str_length = strlen($input);
+    if ($str_length > 6) {
+        throw new InvalidArgumentException('Input contains more than 6 digits');
+    }
+    $a = 0;
+    $b = 0;
+    for ($i = 0; $i < $str_length; $i++) {
+        if ($i < $str_length / 2) {
+            $a += (int) $input[$i];
+        } else {
+            $b += (int) $input[$i];
+        }
+    }
+    $result = $a == $b ? true : false;
+    return $result;
 }
