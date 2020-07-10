@@ -22,6 +22,7 @@ function snakeCaseToCamelCase(string $input) {
  */
 function mirrorMultibyteString(string $input) {
     $words = explode(' ', $input);
+    $words_revere = [];
     foreach ($words as $word) {
         preg_match_all('/./us', $word, $arr);
         $words_revere[] = join('', array_reverse($arr[0]));
