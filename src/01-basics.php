@@ -41,9 +41,7 @@ function isLeapYear(int $year) {
     if ($year < 1900) {
         throw new InvalidArgumentException('The year is less than 1900');
     }
-    $leap = date('L', mktime(0, 0, 0, 1, 1, $year));
-    $result = $leap ? true : false;
-    return $result;
+    return (bool) date('L', mktime(0, 0, 0, 1, 1, $year));
 }
 
 /**
