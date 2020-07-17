@@ -21,13 +21,11 @@ function snakeCaseToCamelCase(string $input) {
  * @return string
  */
 function mirrorMultibyteString(string $input) {
-    $words = explode(' ', $input);
-    $words_revere = [];
-    foreach ($words as $word) {
-        preg_match_all('/./us', $word, $arr);
-        $words_revere[] = join('', array_reverse($arr[0]));
-    }
-    return implode(' ', $words_revere);
+    preg_match_all('/./us', $input, $array);
+    $array2 = implode('', array_reverse($array[0]));
+    $array3 = explode(' ', $array2);
+    
+    return implode(' ', array_reverse($array3));
 }
 
 /**
