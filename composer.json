@@ -3,7 +3,8 @@
         "files": [
             "src/01-basics.php",
             "src/02-strings.php",
-            "src/03-arrays.php"
+            "src/03-arrays.php",
+            "src/04-functions.php"
         ]
     },
     "require": {
