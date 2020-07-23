@@ -33,6 +33,7 @@ function getUniqueValue(array $input) {
     if (empty($input)) {
         return 0;
     }
+    sort($input);
     foreach (array_count_values($input) as $key => $value) {
         if ($value == 1) {
             $result = $key;
