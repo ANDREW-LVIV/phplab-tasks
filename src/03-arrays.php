@@ -70,7 +70,7 @@ function getUniqueValue(array $input) {
  * @return array
  */
 function groupByTag(array $input) {
-    array_multisort($input);
+    sort($input);
     $new_array = [];
     foreach ($input as $sub_array) {
         foreach ($sub_array['tags'] as $tag) {
