@@ -11,7 +11,12 @@
  */
 function getUniqueFirstLetters(array $airports)
 {
-    // put your logic here
+	$arr = array();
+	foreach($airports as $value) {
+		$arr[] = strtoupper($value['name'][0]);
+	}
+	$arr = array_unique($arr);
+	sort($arr);
 
-    return ['A', 'B', 'C'];
+	return $arr;
 }
