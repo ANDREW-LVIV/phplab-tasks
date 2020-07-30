@@ -4,12 +4,8 @@
             "src/01-basics.php",
             "src/02-strings.php",
             "src/03-arrays.php",
-<<<<<<< HEAD
-            "src/04-functions.php"
-=======
             "src/04-functions.php",
             "src/web/functions.php"
->>>>>>> b5e445c845218598430f40803d54cf37d48da9d1
         ]
     },
     "require": {
