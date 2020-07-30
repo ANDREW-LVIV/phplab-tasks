@@ -7,7 +7,7 @@ class CountArgumentsTest extends TestCase
     /**
      * @dataProvider argumentDataProvider
      */
-    public function testCountArguments($expected, $input)
+    public function testCountArguments($input, $expected)
     {
         $this->assertEquals($expected, countArguments(...$input));
     }
@@ -15,10 +15,10 @@ class CountArgumentsTest extends TestCase
     public function argumentDataProvider()
     {
         return [
-            [['argument_count' => 1, 'argument_values' => [null]], [null]],
-            [['argument_count' => 0, 'argument_values' => []], []],
-            [['argument_count' => 1, 'argument_values' => ['one']], ['one']],
-            [['argument_count' => 3, 'argument_values' => ['one', 'two', 'three']], ['one', 'two', 'three']]
+            [[null], ['argument_count' => 1, 'argument_values' => [null]]],
+            [[], ['argument_count' => 0, 'argument_values' => []]],
+            [['one'], ['argument_count' => 1, 'argument_values' => ['one']]],
+            [['one', 'two', 'three'], ['argument_count' => 3, 'argument_values' => ['one', 'two', 'three']]]
         ];
     }
 }
