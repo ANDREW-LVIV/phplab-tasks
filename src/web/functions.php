@@ -95,9 +95,9 @@ function filterByState(array $input, string $param): array {
 		return [];
 	}
 	$param = strtolower($param);
-	return array_filter($input, function($a) use ($param) {
+	return array_values(array_filter($input, function($a) use ($param) {
 		return strtolower($a['state']) == $param;
-	});
+	}));
 }
 
 /**
