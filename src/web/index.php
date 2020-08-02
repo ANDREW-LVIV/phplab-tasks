@@ -23,6 +23,8 @@ $airports = require './airports.php';
  * and apply pagination logic
  * (see Pagination task below)
  */
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,7 +55,7 @@ $airports = require './airports.php';
         Filter by first letter:
 
         <?php foreach (getUniqueFirstLetters(require './airports.php') as $letter): ?>
-            <a href="#"><?= $letter ?></a>
+            <a href="<?= urlGenerator('filter_by_first_letter', $letter) ?>"><?= $letter ?></a>
         <?php endforeach; ?>
 
         <a href="/" class="float-right">Reset all filters</a>
@@ -72,10 +74,10 @@ $airports = require './airports.php';
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a href="#">Name</a></th>
-            <th scope="col"><a href="#">Code</a></th>
-            <th scope="col"><a href="#">State</a></th>
-            <th scope="col"><a href="#">City</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'name') ?>">Name</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'code') ?>">Code</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'state') ?>">State</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'city') ?>">City</a></th>
             <th scope="col">Address</th>
             <th scope="col">Timezone</th>
         </tr>
@@ -91,11 +93,14 @@ $airports = require './airports.php';
              - when you apply filter_by_state, than filter_by_first_letter (see Filtering task #1) is not reset
                i.e. if you have filter_by_first_letter set you can additionally use filter_by_state
         -->
-        <?php foreach ($airports as $airport): ?>
+        <?php
+            $airports_list = limitItems(filterByParam($airports), $page);
+        ?>
+        <?php foreach ($airports_list as $airport): ?>
         <tr>
             <td><?= $airport['name'] ?></td>
             <td><?= $airport['code'] ?></td>
-            <td><a href="#"><?= $airport['state'] ?></a></td>
+            <td><a href="<?= urlGenerator('filter_by_state', $airport['state']) ?>"><?= $airport['state'] ?></a></td>
             <td><?= $airport['city'] ?></td>
             <td><?= $airport['address'] ?></td>
             <td><?= $airport['timezone'] ?></td>
@@ -103,6 +108,11 @@ $airports = require './airports.php';
         <?php endforeach; ?>
         </tbody>
     </table>
+    <?php
+        if(empty($airports_list)) {
+            echo '<div class="alert alert-info text-center">NOTHING TO SHOW =(</div>';
+        }
+    ?>
 
     <!--
         Pagination task
@@ -115,9 +125,7 @@ $airports = require './airports.php';
     -->
     <nav aria-label="Navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <?=pagination(filterByParam($airports), $page)?>
         </ul>
     </nav>
 
