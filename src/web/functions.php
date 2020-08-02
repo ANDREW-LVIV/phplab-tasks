@@ -74,7 +74,7 @@ function filterByFirstLetter(array $input, string $letter): array {
  */
 function sortByParam(array $input, string $param): array {
 	if(empty($param)) {
-		return [];
+		return $input;
 	}
 	$param = strtolower($param);
 	usort($input, function($a, $b) use ($param) {
