@@ -106,7 +106,7 @@ function filterByState(array $input, string $param): array {
  * @param  integer $page
  * @return array
  */
-function limitItems(array $input, int $page): array {
+function limitItems(array $input, int $page = 1): array {
 	if (empty($input)) {
 		return [];
 	}
@@ -125,7 +125,7 @@ function limitItems(array $input, int $page): array {
  * @param  integer $page
  * @return string
  */
-function pagination(array $input, int $page): string {
+function pagination(array $input, int $page = 1): string {
 	$result = '';
 	$pages = (int) ceil(count($input) / SHOW_ON_PAGE);
 	if ($page > $pages || $page <= 0) {
