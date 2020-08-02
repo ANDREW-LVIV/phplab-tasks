@@ -12,7 +12,7 @@ define("SHOW_ON_PAGE", 5);
  * @param  array  $airports
  * @return string[]
  */
-function getUniqueFirstLetters(array $airports) {
+function getUniqueFirstLetters(array $airports): array {
     $arr = array();
     foreach ($airports as $value) {
         $arr[] = strtoupper($value['name'][0]);
@@ -28,8 +28,8 @@ function getUniqueFirstLetters(array $airports) {
  * @param  string $str
  * @return string
  */
-function safe_var($str) {
-    return strtolower(trim(stripslashes(htmlspecialchars($str))));
+function safe_var(string $str): string {
+    return trim(stripslashes(htmlspecialchars($str)));
 }
 
 /**
@@ -37,7 +37,7 @@ function safe_var($str) {
  * @param  array $input
  * @return array
  */
-function filterByParam($input) {
+function filterByParam(array $input): array {
     if (isset($_GET['filter_by_first_letter'])) {
         $input = filterByFirstLetter($input, safe_var($_GET['filter_by_first_letter']));
     }
@@ -53,23 +53,24 @@ function filterByParam($input) {
 
 /**
  * Filter by First Letter
- * @param  array $input
+ * @param  array  $input
  * @param  srting $letter
  * @return array
  */
-function filterByFirstLetter($input, $letter) {
+function filterByFirstLetter(array $input, string $letter): array {
     return array_filter($input, function($a) use ($letter) {
-        return strtolower($a['name'][0]) == $letter;
+        return strtolower($a['name'][0]) == strtolower($letter);
     });
 }
 
 /**
  * Sort by Parameters
- * @param  array $input
+ * @param  array  $input
  * @param  srting $param
  * @return array
  */
-function sortByParam($input, $param) {
+function sortByParam(array $input, string $param): array {
+    $param = strtolower($param);
     usort($input, function($a, $b) use ($param) {
         return $a[$param] <=> $b[$param];
     });
@@ -79,11 +80,12 @@ function sortByParam($input, $param) {
 
 /**
  * Filter by Parameters
- * @param  array $input
+ * @param  array  $input
  * @param  srting $param
  * @return array
  */
-function filterByState($input, $param) {
+function filterByState(array $input, string $param): array {
+    $param = strtolower($param);
     return array_filter($input, function($a) use ($param) {
         return strtolower($a['state']) == $param;
     });
@@ -91,10 +93,11 @@ function filterByState($input, $param) {
 
 /**
  * Items Limitation
- * @param  array $input
+ * @param  array   $input
+ * @param  integer $page
  * @return array
  */
-function limitItems($input, $page) {
+function limitItems(array $input, int $page): array {
     if (empty($input)) {
         return [];
     }
@@ -109,10 +112,11 @@ function limitItems($input, $page) {
 
 /**
  * Pagination
- * @param  array $input
+ * @param  array   $input
+ * @param  integer $page
  * @return string
  */
-function pagination($input, $page) {
+function pagination(array $input, int $page): string {
     $pages = (int) ceil(count($input) / SHOW_ON_PAGE);
     if ($page > $pages || $page <= 0) {
         $page = 1;
@@ -154,7 +158,7 @@ function pagination($input, $page) {
  * @param  srting $value
  * @return string
  */
-function urlGenerator($parameter = '', $value = '') {
+function urlGenerator(string $parameter = '', string $value = ''): string {
     $page_0 = isset($_GET['page']) ? '&page=' . intval($_GET['page']) : '';
     $page = ($parameter == 'page') ? '&page=' . intval($value) : $page_0;
 
