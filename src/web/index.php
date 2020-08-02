@@ -1,4 +1,15 @@
 <?php
+
+///
+// SHOW all errors:
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+// HIDE all errors:
+// error_reporting(0);
+// ini_set('display_errors', 0);
+///
+
 require_once './functions.php';
 
 $airports = require './airports.php';

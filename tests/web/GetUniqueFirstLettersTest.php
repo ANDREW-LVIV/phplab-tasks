@@ -2,18 +2,16 @@
 
 use PHPUnit\Framework\TestCase;
 
-class GetUniqueFirstLettersTest extends TestCase
-{
+class GetUniqueFirstLettersTest extends TestCase {
+
     /**
-    * @dataProvider airportsDataProvider
-    */
-    public function testGetUniqueFirstLetters($input, $expected)
-    {
+     * @dataProvider airportsDataProvider
+     */
+    public function testGetUniqueFirstLetters($input, $expected) {
         $this->assertEquals($expected, getUniqueFirstLetters($input));
     }
 
-    public function airportsDataProvider()
-    {
+    public function airportsDataProvider() {
         return [
             [
                 [
@@ -22,10 +20,11 @@ class GetUniqueFirstLettersTest extends TestCase
                     ['name' => 'Austin Bergstrom International Airport'],
                     ['name' => 'Nashville Metropolitan Airport 1'],
                     ['name' => 'Boston Logan International Airport']
-                ], 
+                ],
                 ['A', 'B', 'N']
             ],
-            [[],[]]
+            [[], []]
         ];
     }
+
 }
