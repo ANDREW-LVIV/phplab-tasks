@@ -127,7 +127,7 @@ function limitItems(array $input, int $page = 1): array {
  * Pagination
  * @param  array   $input
  * @param  integer $page
- * @param  array  $params
+ * @param  array   $params
  * @return string
  */
 function pagination(array $input, int $page = 1, array $params): string {
