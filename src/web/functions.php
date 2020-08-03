@@ -61,6 +61,7 @@ function filterByFirstLetter(array $input, string $letter): array {
 	if(empty($letter)) {
 		return [];
 	}
+
 	return array_values(array_filter($input, function($a) use ($letter) {
 		return strtolower($a['name'][0]) == strtolower($letter[0]);
 	}));
@@ -95,6 +96,7 @@ function filterByState(array $input, string $param): array {
 		return [];
 	}
 	$param = strtolower($param);
+
 	return array_values(array_filter($input, function($a) use ($param) {
 		return strtolower($a['state']) == $param;
 	}));
@@ -169,8 +171,7 @@ function pagination(array $input, int $page = 1): string {
  * @return string
  */
 function urlGenerator(string $parameter = '', string $value = ''): string {
-	$page_0 = isset($_GET['page']) ? '&page=' . intval($_GET['page']) : '';
-	$page = ($parameter == 'page') ? '&page=' . intval($value) : $page_0;
+	$page = ($parameter == 'page') ? '&page=' . intval($value) : '&page=1';
 
 	$filter_by_first_letter_0 = isset($_GET['filter_by_first_letter']) ? '&filter_by_first_letter=' . safe_var($_GET['filter_by_first_letter']) : '';
 	$filter_by_first_letter = ($parameter == 'filter_by_first_letter') ? '&filter_by_first_letter=' . safe_var($value) : $filter_by_first_letter_0;
