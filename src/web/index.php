@@ -20,14 +20,6 @@ $airports = require './airports.php';
  * and apply filtering by First Airport Name Letter and/or Airport State
  * (see Filtering tasks 1 and 2 below)
  */
-$filter_by_first_letter = isset($_GET['filter_by_first_letter']) ? safe_var($_GET['filter_by_first_letter']) : NULL;
-$sort = isset($_GET['sort']) ? safe_var($_GET['sort']) : NULL;
-$filter_by_state = isset($_GET['filter_by_state']) ? safe_var($_GET['filter_by_state']) : NULL;
-$params = [
-    'filter_by_first_letter' => $filter_by_first_letter, 
-    'sort' => $sort, 
-    'filter_by_state' => $filter_by_state
-];
 
 // Sorting
 /**
@@ -42,9 +34,16 @@ $params = [
  * and apply pagination logic
  * (see Pagination task below)
  */
+
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-
-
+$filter_by_first_letter = isset($_GET['filter_by_first_letter']) ? safe_var($_GET['filter_by_first_letter'][0]) : NULL;
+$sort = isset($_GET['sort']) ? safe_var($_GET['sort']) : NULL;
+$filter_by_state = isset($_GET['filter_by_state']) ? safe_var($_GET['filter_by_state']) : NULL;
+$params = [
+    'filter_by_first_letter' => $filter_by_first_letter, 
+    'sort' => $sort, 
+    'filter_by_state' => $filter_by_state
+];
 
 ?>
 <!doctype html>
@@ -76,7 +75,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         Filter by first letter:
 
         <?php foreach (getUniqueFirstLetters(require './airports.php') as $letter): ?>
-            <a href="<?= urlGenerator('filter_by_first_letter', $letter) ?>"><?= $letter ?></a>
+            <a href="<?= urlGenerator('filter_by_first_letter', $letter, $params) ?>"><?= $letter ?></a>
         <?php endforeach; ?>
 
         <a href="/" class="float-right">Reset all filters</a>
@@ -95,10 +94,10 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     <table class="table">
         <thead>
         <tr>
-            <th scope="col"><a href="<?= urlGenerator('sort', 'name') ?>">Name</a></th>
-            <th scope="col"><a href="<?= urlGenerator('sort', 'code') ?>">Code</a></th>
-            <th scope="col"><a href="<?= urlGenerator('sort', 'state') ?>">State</a></th>
-            <th scope="col"><a href="<?= urlGenerator('sort', 'city') ?>">City</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'name', $params) ?>">Name</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'code', $params) ?>">Code</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'state', $params) ?>">State</a></th>
+            <th scope="col"><a href="<?= urlGenerator('sort', 'city', $params) ?>">City</a></th>
             <th scope="col">Address</th>
             <th scope="col">Timezone</th>
         </tr>
@@ -121,7 +120,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         <tr>
             <td><?= $airport['name'] ?></td>
             <td><?= $airport['code'] ?></td>
-            <td><a href="<?= urlGenerator('filter_by_state', $airport['state']) ?>"><?= $airport['state'] ?></a></td>
+            <td><a href="<?= urlGenerator('filter_by_state', $airport['state'], $params) ?>"><?= $airport['state'] ?></a></td>
             <td><?= $airport['city'] ?></td>
             <td><?= $airport['address'] ?></td>
             <td><?= $airport['timezone'] ?></td>
@@ -146,7 +145,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     -->
     <nav aria-label="Navigation">
         <ul class="pagination justify-content-center">
-            <?=pagination(applyParams($airports, $params), $page)?>
+            <?=pagination(applyParams($airports, $params), $page, $params)?>
         </ul>
     </nav>
 

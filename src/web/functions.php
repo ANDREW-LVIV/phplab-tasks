@@ -127,9 +127,10 @@ function limitItems(array $input, int $page = 1): array {
  * Pagination
  * @param  array   $input
  * @param  integer $page
+ * @param  array  $params
  * @return string
  */
-function pagination(array $input, int $page = 1): string {
+function pagination(array $input, int $page = 1, array $params): string {
 	$result = '';
 	$pages = (int) ceil(count($input) / SHOW_ON_PAGE);
 	if ($page > $pages || $page <= 0) {
@@ -139,7 +140,7 @@ function pagination(array $input, int $page = 1): string {
 	$asd2 = $page + 5;
 
 	if ($page > 5) {
-		$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', 1) . '">1</a></li>';
+		$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', 1, $params) . '">1</a></li>';
 	}
 	if ($page > 6) {
 		$result .= '<li class="page-item"><span class="page-link">...</span></li>';
@@ -152,7 +153,7 @@ function pagination(array $input, int $page = 1): string {
 			if ($page == $i) {
 				$result .= '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
 			} else {
-				$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', $i) . '">' . $i . '</a></li>';
+				$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', $i, $params) . '">' . $i . '</a></li>';
 			}
 		}
 	}
@@ -160,7 +161,7 @@ function pagination(array $input, int $page = 1): string {
 		$result .= '<li class="page-item"><span class="page-link">...</span></li>';
 	}
 	if ($asd2 <= $pages) {
-		$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', $pages) . '">' . $pages . '</a></li>';
+		$result .= '<li class="page-item"><a class="page-link" href="' . urlGenerator('page', $pages, $params) . '">' . $pages . '</a></li>';
 	}
 
 	return $result;
@@ -170,19 +171,20 @@ function pagination(array $input, int $page = 1): string {
  * Generates URL with  parameters
  * @param  srting $parameter
  * @param  srting $value
+ * @param  array  $params
  * @return string
  */
-function urlGenerator(string $parameter = '', string $value = ''): string {
+function urlGenerator(string $parameter = '', string $value = '', array $params): string {
 	$page = ($parameter == 'page') ? '&page=' . intval($value) : '&page=1';
 
-	$filter_by_first_letter_0 = isset($_GET['filter_by_first_letter']) ? '&filter_by_first_letter=' . safe_var($_GET['filter_by_first_letter']) : '';
-	$filter_by_first_letter = ($parameter == 'filter_by_first_letter') ? '&filter_by_first_letter=' . safe_var($value) : $filter_by_first_letter_0;
+	$filter_by_first_letter_0 = isset($params['filter_by_first_letter']) ? '&filter_by_first_letter=' . $params['filter_by_first_letter'] : '';
+	$filter_by_first_letter = ($parameter == 'filter_by_first_letter') ? '&filter_by_first_letter=' . $value : $filter_by_first_letter_0;
 
-	$sort_0 = isset($_GET['sort']) ? '&sort=' . safe_var($_GET['sort']) : '';
-	$sort = ($parameter == 'sort') ? '&sort=' . safe_var($value) : $sort_0;
+	$sort_0 = isset($params['sort']) ? '&sort=' . $params['sort'] : '';
+	$sort = ($parameter == 'sort') ? '&sort=' . $value : $sort_0;
 
-	$filter_by_state_0 = isset($_GET['filter_by_state']) ? '&filter_by_state=' . safe_var($_GET['filter_by_state']) : '';
-	$filter_by_state = ($parameter == 'filter_by_state') ? '&filter_by_state=' . safe_var($value) : $filter_by_state_0;
+	$filter_by_state_0 = isset($params['filter_by_state']) ? '&filter_by_state=' . $params['filter_by_state'] : '';
+	$filter_by_state = ($parameter == 'filter_by_state') ? '&filter_by_state=' . $value : $filter_by_state_0;
 
 	return '/?' . trim($page . $filter_by_first_letter . $sort . $filter_by_state, '&');
 }
