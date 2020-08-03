@@ -73,10 +73,10 @@ function filterByFirstLetter(array $input, string $letter): array {
  * @return array
  */
 function sortByParam(array $input, string $param): array {
-	if(empty($param)) {
+	$param = strtolower($param);
+	if(empty($param) || $param != 'name' && $param != 'code' && $param != 'city' && $param != 'state') {
 		return $input;
 	}
-	$param = strtolower($param);
 	usort($input, function($a, $b) use ($param) {
 		return $a[$param] <=> $b[$param];
 	});
