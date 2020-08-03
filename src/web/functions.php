@@ -35,17 +35,19 @@ function safe_var(string $str): string {
 /**
  * Filter by Parameters
  * @param  array $input
+ * @param  array $params 
  * @return array
  */
-function filterByParam(array $input): array {
-	if (isset($_GET['filter_by_first_letter'])) {
-		$input = filterByFirstLetter($input, safe_var($_GET['filter_by_first_letter']));
+function applyParams(array $input, array $params): array {
+
+	if (isset($params['filter_by_first_letter'])) {
+		$input = filterByFirstLetter($input, $params['filter_by_first_letter']);
 	}
-	if (isset($_GET['sort'])) {
-		$input = sortByParam($input, safe_var($_GET['sort']));
+	if (isset($params['sort'])) {
+		$input = sortByParam($input, $params['sort']);
 	}
-	if (isset($_GET['filter_by_state'])) {
-		$input = filterByState($input, safe_var($_GET['filter_by_state']));
+	if (isset($params['filter_by_state'])) {
+		$input = filterByState($input, $params['filter_by_state']);
 	}
 
 	return $input;

@@ -20,6 +20,14 @@ $airports = require './airports.php';
  * and apply filtering by First Airport Name Letter and/or Airport State
  * (see Filtering tasks 1 and 2 below)
  */
+$filter_by_first_letter = isset($_GET['filter_by_first_letter']) ? safe_var($_GET['filter_by_first_letter']) : NULL;
+$sort = isset($_GET['sort']) ? safe_var($_GET['sort']) : NULL;
+$filter_by_state = isset($_GET['filter_by_state']) ? safe_var($_GET['filter_by_state']) : NULL;
+$params = [
+    'filter_by_first_letter' => $filter_by_first_letter, 
+    'sort' => $sort, 
+    'filter_by_state' => $filter_by_state
+];
 
 // Sorting
 /**
@@ -35,6 +43,8 @@ $airports = require './airports.php';
  * (see Pagination task below)
  */
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+
 
 ?>
 <!doctype html>
@@ -105,7 +115,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                i.e. if you have filter_by_first_letter set you can additionally use filter_by_state
         -->
         <?php
-            $airports_list = limitItems(filterByParam($airports), $page);
+            $airports_list = limitItems(applyParams($airports, $params), $page);
         ?>
         <?php foreach ($airports_list as $airport): ?>
         <tr>
@@ -136,7 +146,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     -->
     <nav aria-label="Navigation">
         <ul class="pagination justify-content-center">
-            <?=pagination(filterByParam($airports), $page)?>
+            <?=pagination(applyParams($airports, $params), $page)?>
         </ul>
     </nav>
 
