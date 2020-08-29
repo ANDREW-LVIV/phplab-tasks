@@ -64,24 +64,24 @@ if ($request->has('unset_session')) {
 		* { font-size: 14px;}
 		p { margin: 0; }
 		pre { margin: 0; }
-		.table tr td { padding: 2px 10px; }
+		.table tr td { padding: 3px 10px; }
 		.table td { vertical-align: middle; }
-		.table-bordered td, .table-bordered th { border: 2px solid #e4f7fa; }
+		.table-bordered td, .table-bordered th { border: 2px solid #c9e9ee; }
 		.table-bordered { border: 4px solid #bee5eb; }
 	</style>
 </head>
 
-<body class="bg-dark">
+<body class="bg-light">
 	<main role="main" class="container-fluid container-xl">
 
-		<h3 class="text-white text-center p-2">PHP7 OOP</h3>
+		<h3 class="text-info text-center p-3">PHP7 OOP</h3>
 		<?php include("table-request.php") ?>
 		<?php include("table-cookies.php") ?>
 		<?php include("table-session.php") ?>
 
 	</main>
 	<footer class="container-fluid container-xl mt-3">
-		<div class="bg-light footer-copyright text-center p-2">
+		<div class="footer-copyright text-center p-2">
 			© 2020 <a href="https://github.com/ANDREW-LVIV" target="_blank">::ANDREW-LVIV::</a>
 		</div>	
 	</footer>
