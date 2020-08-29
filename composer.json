@@ -6,7 +6,10 @@
             "src/03-arrays.php",
             "src/04-functions.php",
             "src/web/functions.php"
-        ]
+        ],
+        "psr-4": {
+            "src\\": "src/"
+        }
     },
     "require": {
         "php": "^7.3",
