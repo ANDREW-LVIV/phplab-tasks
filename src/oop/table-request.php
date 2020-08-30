@@ -124,6 +124,15 @@ $request = new Request();
 
 	<tr>
 		<td>
+			<p class="font-weight-bold">`requestURI()`</p>
+			<p class="text-info"><span class="font-italic">returns current URI</span></p>
+		</td>
+		<td>*</td>
+		<td><?=$request->requestURI()?></td>
+	</tr>
+
+	<tr>
+		<td>
 			<p class="font-weight-bold">`cookies`</p>
 			<p class="text-info"><span class="font-italic">returns Cookie object</span></p>
 		</td>

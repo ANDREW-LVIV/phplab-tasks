@@ -78,7 +78,7 @@ class Request {
 		return $this->referer ? $this->referer : null;
 	}
 
-	// returns Referer URL
+	// returns current URI
 	public function requestURI(): ?string {
 		return $this->request_uri ? $this->request_uri : null;
 	}
