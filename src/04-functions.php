@@ -71,14 +71,12 @@ function countArguments()
  */
 function countArgumentsWrapper()
 {
-    $result = [];
-    foreach(func_get_args() as $arg){
+    $args = func_get_args();
+    foreach($args as $arg){
         if (!is_string($arg)) {
             throw new InvalidArgumentException('Parameter is not a string');
-        }else{
-            $result[] = $arg;
         }
     }
     
-    return countArguments(...$result);
+    return countArguments(...$args);
 }
