@@ -29,7 +29,7 @@ function getUniqueFirstLetters(array $airports): array {
  * @return string
  */
 function safe_var(string $str): string {
-	return trim(stripslashes(htmlspecialchars($str)));
+	return trim(htmlspecialchars($str));
 }
 
 /**
