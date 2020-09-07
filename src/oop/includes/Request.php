@@ -1,6 +1,6 @@
 <?php
-include_once("Session.php");
-include_once("Cookies.php");
+require_once("Session.php");
+require_once("Cookies.php");
 
 // replaces default PHP global variables and functions by an object-oriented layer
 class Request {

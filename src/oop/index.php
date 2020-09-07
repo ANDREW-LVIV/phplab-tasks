@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 ///
 
 session_start();
-include_once("includes/Request.php");
+require_once("includes/Request.php");
 $request = new Request();
 $session = $request->session();
 $cookies = $request->cookies();
