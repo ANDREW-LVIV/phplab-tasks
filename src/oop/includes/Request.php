@@ -87,12 +87,12 @@ class Request {
 	}
 
 	// returns Cookie object
-	public function cookies() {
+	public function cookies(): object {
 		return $this->cookies;
 	}
 
 	// returns Session object
-	public function session() {
+	public function session(): object {
 		return $this->session;
 	}
 
