@@ -1,4 +1,7 @@
 <?php
+include_once("Session.php");
+include_once("Cookies.php");
+
 // replaces default PHP global variables and functions by an object-oriented layer
 class Request {
 
@@ -19,10 +22,10 @@ class Request {
 		$this->ip = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']; 
 		$this->ua = $_SERVER['HTTP_USER_AGENT'];
 		$this->ua_lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		$this->referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'referer link empty';
+		$this->referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'referrer link is empty';
 		$this->request_uri = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		$this->cookies = $_COOKIE;
-		$this->session = $_SESSION;
+		$this->cookies = new Cookies();
+		$this->session = new Session();
 	}
 
 	// returns $_GET parameter by $key and $default if does not exist
@@ -83,13 +86,13 @@ class Request {
 		return $this->request_uri ? $this->request_uri : null;
 	}
 
-	// returns Cookie object (see below)
-	public function cookies(): array {
+	// returns Cookie object
+	public function cookies() {
 		return $this->cookies;
 	}
 
-	// returns Session object (see below)
-	public function session(): ?array {
+	// returns Session object
+	public function session() {
 		return $this->session;
 	}
 

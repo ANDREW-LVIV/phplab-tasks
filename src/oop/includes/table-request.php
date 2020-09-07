@@ -1,10 +1,3 @@
-<?php
-
-include_once("Request.php");
-$request = new Request();
-
-?>
-
 <table class="table table-bordered bg-white">
 
 	<tr class="table-info">
@@ -129,24 +122,6 @@ $request = new Request();
 		</td>
 		<td>*</td>
 		<td><?=$request->requestURI()?></td>
-	</tr>
-
-	<tr>
-		<td>
-			<p class="font-weight-bold">`cookies`</p>
-			<p class="text-info"><span class="font-italic">returns Cookie object</span></p>
-		</td>
-		<td>*</td>
-		<td><pre><?php	print_r($request->cookies());	?></pre></td>
-	</tr>
-
-	<tr>
-		<td>
-			<p class="font-weight-bold">`session`</p>
-			<p class="text-info"><span class="font-italic">returns Session object</span></p>
-		</td>
-		<td>*</td>
-		<td><pre><?php	print_r($request->session());	?></pre></td>
 	</tr>
 
 </table>

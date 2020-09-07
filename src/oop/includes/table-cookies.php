@@ -1,12 +1,3 @@
-<?php
-
-include_once("Cookies.php");
-$cookies = new Cookies();
-include_once("Request.php");
-$request = new Request();
-
-?>
-
 <table class="table table-bordered bg-white">
 
 	<tr class="table-info">

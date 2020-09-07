@@ -11,12 +11,10 @@ error_reporting(E_ALL);
 ///
 
 session_start();
-include_once("Request.php");
+include_once("includes/Request.php");
 $request = new Request();
-include_once("Session.php");
-$session = new Session();
-include_once("Cookies.php");
-$cookies = new Cookies();
+$session = $request->session();
+$cookies = $request->cookies();
 
 //set cookie
 if ($request->has('cookie_key') && $request->has('cookie_value')) {
@@ -75,9 +73,9 @@ if ($request->has('unset_session')) {
 	<main role="main" class="container-fluid container-xl">
 
 		<h3 class="text-info text-center p-3">PHP7 OOP</h3>
-		<?php include("table-request.php") ?>
-		<?php include("table-cookies.php") ?>
-		<?php include("table-session.php") ?>
+		<?php include("includes/table-request.php") ?>
+		<?php include("includes/table-cookies.php") ?>
+		<?php include("includes/table-session.php") ?>
 
 	</main>
 	<footer class="container-fluid container-xl mt-3">
